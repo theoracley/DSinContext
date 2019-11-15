@@ -1,0 +1,105 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Myriel", "label": "Myriel", "shape": "dot", "title": "Myriel"}, {"id": "Napoleon", "label": "Napoleon", "shape": "dot", "title": "Napoleon"}, {"id": "MlleBaptistine", "label": "MlleBaptistine", "shape": "dot", "title": "MlleBaptistine"}, {"id": "MmeMagloire", "label": "MmeMagloire", "shape": "dot", "title": "MmeMagloire"}, {"id": "CountessDeLo", "label": "CountessDeLo", "shape": "dot", "title": "CountessDeLo"}, {"id": "Geborand", "label": "Geborand", "shape": "dot", "title": "Geborand"}, {"id": "Champtercier", "label": "Champtercier", "shape": "dot", "title": "Champtercier"}, {"id": "Cravatte", "label": "Cravatte", "shape": "dot", "title": "Cravatte"}, {"id": "Count", "label": "Count", "shape": "dot", "title": "Count"}, {"id": "OldMan", "label": "OldMan", "shape": "dot", "title": "OldMan"}, {"id": "Valjean", "label": "Valjean", "shape": "dot", "title": "Valjean"}, {"id": "Labarre", "label": "Labarre", "shape": "dot", "title": "Labarre"}, {"id": "Marguerite", "label": "Marguerite", "shape": "dot", "title": "Marguerite"}, {"id": "MmeDeR", "label": "MmeDeR", "shape": "dot", "title": "MmeDeR"}, {"id": "Isabeau", "label": "Isabeau", "shape": "dot", "title": "Isabeau"}, {"id": "Gervais", "label": "Gervais", "shape": "dot", "title": "Gervais"}, {"id": "Fantine", "label": "Fantine", "shape": "dot", "title": "Fantine"}, {"id": "MmeThenardier", "label": "MmeThenardier", "shape": "dot", "title": "MmeThenardier"}, {"id": "Thenardier", "label": "Thenardier", "shape": "dot", "title": "Thenardier"}, {"id": "Cosette", "label": "Cosette", "shape": "dot", "title": "Cosette"}, {"id": "Javert", "label": "Javert", "shape": "dot", "title": "Javert"}, {"id": "Fauchelevent", "label": "Fauchelevent", "shape": "dot", "title": "Fauchelevent"}, {"id": "Bamatabois", "label": "Bamatabois", "shape": "dot", "title": "Bamatabois"}, {"id": "Simplice", "label": "Simplice", "shape": "dot", "title": "Simplice"}, {"id": "Scaufflaire", "label": "Scaufflaire", "shape": "dot", "title": "Scaufflaire"}, {"id": "Woman1", "label": "Woman1", "shape": "dot", "title": "Woman1"}, {"id": "Judge", "label": "Judge", "shape": "dot", "title": "Judge"}, {"id": "Champmathieu", "label": "Champmathieu", "shape": "dot", "title": "Champmathieu"}, {"id": "Brevet", "label": "Brevet", "shape": "dot", "title": "Brevet"}, {"id": "Chenildieu", "label": "Chenildieu", "shape": "dot", "title": "Chenildieu"}, {"id": "Cochepaille", "label": "Cochepaille", "shape": "dot", "title": "Cochepaille"}, {"id": "Woman2", "label": "Woman2", "shape": "dot", "title": "Woman2"}, {"id": "MotherInnocent", "label": "MotherInnocent", "shape": "dot", "title": "MotherInnocent"}, {"id": "Gavroche", "label": "Gavroche", "shape": "dot", "title": "Gavroche"}, {"id": "Gillenormand", "label": "Gillenormand", "shape": "dot", "title": "Gillenormand"}, {"id": "MlleGillenormand", "label": "MlleGillenormand", "shape": "dot", "title": "MlleGillenormand"}, {"id": "Marius", "label": "Marius", "shape": "dot", "title": "Marius"}, {"id": "Enjolras", "label": "Enjolras", "shape": "dot", "title": "Enjolras"}, {"id": "Bossuet", "label": "Bossuet", "shape": "dot", "title": "Bossuet"}, {"id": "Gueulemer", "label": "Gueulemer", "shape": "dot", "title": "Gueulemer"}, {"id": "Babet", "label": "Babet", "shape": "dot", "title": "Babet"}, {"id": "Claquesous", "label": "Claquesous", "shape": "dot", "title": "Claquesous"}, {"id": "Montparnasse", "label": "Montparnasse", "shape": "dot", "title": "Montparnasse"}, {"id": "Toussaint", "label": "Toussaint", "shape": "dot", "title": "Toussaint"}, {"id": "Tholomyes", "label": "Tholomyes", "shape": "dot", "title": "Tholomyes"}, {"id": "Listolier", "label": "Listolier", "shape": "dot", "title": "Listolier"}, {"id": "Fameuil", "label": "Fameuil", "shape": "dot", "title": "Fameuil"}, {"id": "Blacheville", "label": "Blacheville", "shape": "dot", "title": "Blacheville"}, {"id": "Favourite", "label": "Favourite", "shape": "dot", "title": "Favourite"}, {"id": "Dahlia", "label": "Dahlia", "shape": "dot", "title": "Dahlia"}, {"id": "Zephine", "label": "Zephine", "shape": "dot", "title": "Zephine"}, {"id": "Perpetue", "label": "Perpetue", "shape": "dot", "title": "Perpetue"}, {"id": "Eponine", "label": "Eponine", "shape": "dot", "title": "Eponine"}, {"id": "Anzelma", "label": "Anzelma", "shape": "dot", "title": "Anzelma"}, {"id": "Magnon", "label": "Magnon", "shape": "dot", "title": "Magnon"}, {"id": "Pontmercy", "label": "Pontmercy", "shape": "dot", "title": "Pontmercy"}, {"id": "Boulatruelle", "label": "Boulatruelle", "shape": "dot", "title": "Boulatruelle"}, {"id": "Brujon", "label": "Brujon", "shape": "dot", "title": "Brujon"}, {"id": "LtGillenormand", "label": "LtGillenormand", "shape": "dot", "title": "LtGillenormand"}, {"id": "Gribier", "label": "Gribier", "shape": "dot", "title": "Gribier"}, {"id": "MmePontmercy", "label": "MmePontmercy", "shape": "dot", "title": "MmePontmercy"}, {"id": "Mabeuf", "label": "Mabeuf", "shape": "dot", "title": "Mabeuf"}, {"id": "Courfeyrac", "label": "Courfeyrac", "shape": "dot", "title": "Courfeyrac"}, {"id": "Jondrette", "label": "Jondrette", "shape": "dot", "title": "Jondrette"}, {"id": "MmeBurgon", "label": "MmeBurgon", "shape": "dot", "title": "MmeBurgon"}, {"id": "Combeferre", "label": "Combeferre", "shape": "dot", "title": "Combeferre"}, {"id": "Prouvaire", "label": "Prouvaire", "shape": "dot", "title": "Prouvaire"}, {"id": "Feuilly", "label": "Feuilly", "shape": "dot", "title": "Feuilly"}, {"id": "Bahorel", "label": "Bahorel", "shape": "dot", "title": "Bahorel"}, {"id": "Joly", "label": "Joly", "shape": "dot", "title": "Joly"}, {"id": "Grantaire", "label": "Grantaire", "shape": "dot", "title": "Grantaire"}, {"id": "Child1", "label": "Child1", "shape": "dot", "title": "Child1"}, {"id": "Child2", "label": "Child2", "shape": "dot", "title": "Child2"}, {"id": "MmeHucheloup", "label": "MmeHucheloup", "shape": "dot", "title": "MmeHucheloup"}, {"id": "BaronessT", "label": "BaronessT", "shape": "dot", "title": "BaronessT"}, {"id": "MlleVaubois", "label": "MlleVaubois", "shape": "dot", "title": "MlleVaubois"}, {"id": "MotherPlutarch", "label": "MotherPlutarch", "shape": "dot", "title": "MotherPlutarch"}]);
+        edges = new vis.DataSet([{"from": "Myriel", "to": "Napoleon"}, {"from": "Myriel", "to": "MlleBaptistine"}, {"from": "Myriel", "to": "MmeMagloire"}, {"from": "Myriel", "to": "CountessDeLo"}, {"from": "Myriel", "to": "Geborand"}, {"from": "Myriel", "to": "Champtercier"}, {"from": "Myriel", "to": "Cravatte"}, {"from": "Myriel", "to": "Count"}, {"from": "Myriel", "to": "OldMan"}, {"from": "Myriel", "to": "Valjean"}, {"from": "MlleBaptistine", "to": "MmeMagloire"}, {"from": "MlleBaptistine", "to": "Valjean"}, {"from": "MmeMagloire", "to": "Valjean"}, {"from": "Labarre", "to": "Valjean"}, {"from": "Valjean", "to": "Marguerite"}, {"from": "Valjean", "to": "MmeDeR"}, {"from": "Valjean", "to": "Isabeau"}, {"from": "Valjean", "to": "Gervais"}, {"from": "Valjean", "to": "Fantine"}, {"from": "Valjean", "to": "MmeThenardier"}, {"from": "Valjean", "to": "Thenardier"}, {"from": "Valjean", "to": "Cosette"}, {"from": "Valjean", "to": "Javert"}, {"from": "Valjean", "to": "Fauchelevent"}, {"from": "Valjean", "to": "Bamatabois"}, {"from": "Valjean", "to": "Simplice"}, {"from": "Valjean", "to": "Scaufflaire"}, {"from": "Valjean", "to": "Woman1"}, {"from": "Valjean", "to": "Judge"}, {"from": "Valjean", "to": "Champmathieu"}, {"from": "Valjean", "to": "Brevet"}, {"from": "Valjean", "to": "Chenildieu"}, {"from": "Valjean", "to": "Cochepaille"}, {"from": "Valjean", "to": "Woman2"}, {"from": "Valjean", "to": "MotherInnocent"}, {"from": "Valjean", "to": "Gavroche"}, {"from": "Valjean", "to": "Gillenormand"}, {"from": "Valjean", "to": "MlleGillenormand"}, {"from": "Valjean", "to": "Marius"}, {"from": "Valjean", "to": "Enjolras"}, {"from": "Valjean", "to": "Bossuet"}, {"from": "Valjean", "to": "Gueulemer"}, {"from": "Valjean", "to": "Babet"}, {"from": "Valjean", "to": "Claquesous"}, {"from": "Valjean", "to": "Montparnasse"}, {"from": "Valjean", "to": "Toussaint"}, {"from": "Marguerite", "to": "Fantine"}, {"from": "Tholomyes", "to": "Listolier"}, {"from": "Tholomyes", "to": "Fameuil"}, {"from": "Tholomyes", "to": "Blacheville"}, {"from": "Tholomyes", "to": "Favourite"}, {"from": "Tholomyes", "to": "Dahlia"}, {"from": "Tholomyes", "to": "Zephine"}, {"from": "Tholomyes", "to": "Fantine"}, {"from": "Tholomyes", "to": "Cosette"}, {"from": "Tholomyes", "to": "Marius"}, {"from": "Listolier", "to": "Fameuil"}, {"from": "Listolier", "to": "Blacheville"}, {"from": "Listolier", "to": "Favourite"}, {"from": "Listolier", "to": "Dahlia"}, {"from": "Listolier", "to": "Zephine"}, {"from": "Listolier", "to": "Fantine"}, {"from": "Fameuil", "to": "Blacheville"}, {"from": "Fameuil", "to": "Favourite"}, {"from": "Fameuil", "to": "Dahlia"}, {"from": "Fameuil", "to": "Zephine"}, {"from": "Fameuil", "to": "Fantine"}, {"from": "Blacheville", "to": "Favourite"}, {"from": "Blacheville", "to": "Dahlia"}, {"from": "Blacheville", "to": "Zephine"}, {"from": "Blacheville", "to": "Fantine"}, {"from": "Favourite", "to": "Dahlia"}, {"from": "Favourite", "to": "Zephine"}, {"from": "Favourite", "to": "Fantine"}, {"from": "Dahlia", "to": "Zephine"}, {"from": "Dahlia", "to": "Fantine"}, {"from": "Zephine", "to": "Fantine"}, {"from": "Fantine", "to": "MmeThenardier"}, {"from": "Fantine", "to": "Thenardier"}, {"from": "Fantine", "to": "Javert"}, {"from": "Fantine", "to": "Bamatabois"}, {"from": "Fantine", "to": "Perpetue"}, {"from": "Fantine", "to": "Simplice"}, {"from": "MmeThenardier", "to": "Thenardier"}, {"from": "MmeThenardier", "to": "Cosette"}, {"from": "MmeThenardier", "to": "Javert"}, {"from": "MmeThenardier", "to": "Eponine"}, {"from": "MmeThenardier", "to": "Anzelma"}, {"from": "MmeThenardier", "to": "Magnon"}, {"from": "MmeThenardier", "to": "Gueulemer"}, {"from": "MmeThenardier", "to": "Babet"}, {"from": "MmeThenardier", "to": "Claquesous"}, {"from": "Thenardier", "to": "Cosette"}, {"from": "Thenardier", "to": "Javert"}, {"from": "Thenardier", "to": "Pontmercy"}, {"from": "Thenardier", "to": "Boulatruelle"}, {"from": "Thenardier", "to": "Eponine"}, {"from": "Thenardier", "to": "Anzelma"}, {"from": "Thenardier", "to": "Gavroche"}, {"from": "Thenardier", "to": "Marius"}, {"from": "Thenardier", "to": "Gueulemer"}, {"from": "Thenardier", "to": "Babet"}, {"from": "Thenardier", "to": "Claquesous"}, {"from": "Thenardier", "to": "Montparnasse"}, {"from": "Thenardier", "to": "Brujon"}, {"from": "Cosette", "to": "Javert"}, {"from": "Cosette", "to": "Woman2"}, {"from": "Cosette", "to": "Gillenormand"}, {"from": "Cosette", "to": "MlleGillenormand"}, {"from": "Cosette", "to": "LtGillenormand"}, {"from": "Cosette", "to": "Marius"}, {"from": "Cosette", "to": "Toussaint"}, {"from": "Javert", "to": "Fauchelevent"}, {"from": "Javert", "to": "Bamatabois"}, {"from": "Javert", "to": "Simplice"}, {"from": "Javert", "to": "Woman1"}, {"from": "Javert", "to": "Woman2"}, {"from": "Javert", "to": "Gavroche"}, {"from": "Javert", "to": "Enjolras"}, {"from": "Javert", "to": "Gueulemer"}, {"from": "Javert", "to": "Babet"}, {"from": "Javert", "to": "Claquesous"}, {"from": "Javert", "to": "Montparnasse"}, {"from": "Javert", "to": "Toussaint"}, {"from": "Fauchelevent", "to": "MotherInnocent"}, {"from": "Fauchelevent", "to": "Gribier"}, {"from": "Bamatabois", "to": "Judge"}, {"from": "Bamatabois", "to": "Champmathieu"}, {"from": "Bamatabois", "to": "Brevet"}, {"from": "Bamatabois", "to": "Chenildieu"}, {"from": "Bamatabois", "to": "Cochepaille"}, {"from": "Perpetue", "to": "Simplice"}, {"from": "Judge", "to": "Champmathieu"}, {"from": "Judge", "to": "Brevet"}, {"from": "Judge", "to": "Chenildieu"}, {"from": "Judge", "to": "Cochepaille"}, {"from": "Champmathieu", "to": "Brevet"}, {"from": "Champmathieu", "to": "Chenildieu"}, {"from": "Champmathieu", "to": "Cochepaille"}, {"from": "Brevet", "to": "Chenildieu"}, {"from": "Brevet", "to": "Cochepaille"}, {"from": "Chenildieu", "to": "Cochepaille"}, {"from": "Pontmercy", "to": "MmePontmercy"}, {"from": "Pontmercy", "to": "Marius"}, {"from": "Eponine", "to": "Anzelma"}, {"from": "Eponine", "to": "Marius"}, {"from": "Eponine", "to": "Mabeuf"}, {"from": "Eponine", "to": "Courfeyrac"}, {"from": "Eponine", "to": "Gueulemer"}, {"from": "Eponine", "to": "Babet"}, {"from": "Eponine", "to": "Claquesous"}, {"from": "Eponine", "to": "Montparnasse"}, {"from": "Eponine", "to": "Brujon"}, {"from": "Jondrette", "to": "MmeBurgon"}, {"from": "MmeBurgon", "to": "Gavroche"}, {"from": "Gavroche", "to": "Marius"}, {"from": "Gavroche", "to": "Mabeuf"}, {"from": "Gavroche", "to": "Enjolras"}, {"from": "Gavroche", "to": "Combeferre"}, {"from": "Gavroche", "to": "Prouvaire"}, {"from": "Gavroche", "to": "Feuilly"}, {"from": "Gavroche", "to": "Courfeyrac"}, {"from": "Gavroche", "to": "Bahorel"}, {"from": "Gavroche", "to": "Bossuet"}, {"from": "Gavroche", "to": "Joly"}, {"from": "Gavroche", "to": "Grantaire"}, {"from": "Gavroche", "to": "Gueulemer"}, {"from": "Gavroche", "to": "Babet"}, {"from": "Gavroche", "to": "Montparnasse"}, {"from": "Gavroche", "to": "Child1"}, {"from": "Gavroche", "to": "Child2"}, {"from": "Gavroche", "to": "Brujon"}, {"from": "Gavroche", "to": "MmeHucheloup"}, {"from": "Gillenormand", "to": "Magnon"}, {"from": "Gillenormand", "to": "MlleGillenormand"}, {"from": "Gillenormand", "to": "LtGillenormand"}, {"from": "Gillenormand", "to": "Marius"}, {"from": "Gillenormand", "to": "BaronessT"}, {"from": "MlleGillenormand", "to": "MmePontmercy"}, {"from": "MlleGillenormand", "to": "MlleVaubois"}, {"from": "MlleGillenormand", "to": "LtGillenormand"}, {"from": "MlleGillenormand", "to": "Marius"}, {"from": "LtGillenormand", "to": "Marius"}, {"from": "Marius", "to": "BaronessT"}, {"from": "Marius", "to": "Mabeuf"}, {"from": "Marius", "to": "Enjolras"}, {"from": "Marius", "to": "Combeferre"}, {"from": "Marius", "to": "Feuilly"}, {"from": "Marius", "to": "Courfeyrac"}, {"from": "Marius", "to": "Bahorel"}, {"from": "Marius", "to": "Bossuet"}, {"from": "Marius", "to": "Joly"}, {"from": "Mabeuf", "to": "Enjolras"}, {"from": "Mabeuf", "to": "Combeferre"}, {"from": "Mabeuf", "to": "Feuilly"}, {"from": "Mabeuf", "to": "Courfeyrac"}, {"from": "Mabeuf", "to": "Bahorel"}, {"from": "Mabeuf", "to": "Bossuet"}, {"from": "Mabeuf", "to": "Joly"}, {"from": "Mabeuf", "to": "MotherPlutarch"}, {"from": "Enjolras", "to": "Combeferre"}, {"from": "Enjolras", "to": "Prouvaire"}, {"from": "Enjolras", "to": "Feuilly"}, {"from": "Enjolras", "to": "Courfeyrac"}, {"from": "Enjolras", "to": "Bahorel"}, {"from": "Enjolras", "to": "Bossuet"}, {"from": "Enjolras", "to": "Joly"}, {"from": "Enjolras", "to": "Grantaire"}, {"from": "Enjolras", "to": "Claquesous"}, {"from": "Enjolras", "to": "MmeHucheloup"}, {"from": "Combeferre", "to": "Prouvaire"}, {"from": "Combeferre", "to": "Feuilly"}, {"from": "Combeferre", "to": "Courfeyrac"}, {"from": "Combeferre", "to": "Bahorel"}, {"from": "Combeferre", "to": "Bossuet"}, {"from": "Combeferre", "to": "Joly"}, {"from": "Combeferre", "to": "Grantaire"}, {"from": "Prouvaire", "to": "Feuilly"}, {"from": "Prouvaire", "to": "Courfeyrac"}, {"from": "Prouvaire", "to": "Bahorel"}, {"from": "Prouvaire", "to": "Bossuet"}, {"from": "Prouvaire", "to": "Joly"}, {"from": "Prouvaire", "to": "Grantaire"}, {"from": "Feuilly", "to": "Courfeyrac"}, {"from": "Feuilly", "to": "Bahorel"}, {"from": "Feuilly", "to": "Bossuet"}, {"from": "Feuilly", "to": "Joly"}, {"from": "Feuilly", "to": "Grantaire"}, {"from": "Courfeyrac", "to": "Bahorel"}, {"from": "Courfeyrac", "to": "Bossuet"}, {"from": "Courfeyrac", "to": "Joly"}, {"from": "Courfeyrac", "to": "Grantaire"}, {"from": "Courfeyrac", "to": "MmeHucheloup"}, {"from": "Bahorel", "to": "Bossuet"}, {"from": "Bahorel", "to": "Joly"}, {"from": "Bahorel", "to": "Grantaire"}, {"from": "Bahorel", "to": "MmeHucheloup"}, {"from": "Bossuet", "to": "Joly"}, {"from": "Bossuet", "to": "Grantaire"}, {"from": "Bossuet", "to": "MmeHucheloup"}, {"from": "Joly", "to": "Grantaire"}, {"from": "Joly", "to": "MmeHucheloup"}, {"from": "Grantaire", "to": "MmeHucheloup"}, {"from": "Gueulemer", "to": "Babet"}, {"from": "Gueulemer", "to": "Claquesous"}, {"from": "Gueulemer", "to": "Montparnasse"}, {"from": "Gueulemer", "to": "Brujon"}, {"from": "Babet", "to": "Claquesous"}, {"from": "Babet", "to": "Montparnasse"}, {"from": "Babet", "to": "Brujon"}, {"from": "Claquesous", "to": "Montparnasse"}, {"from": "Claquesous", "to": "Brujon"}, {"from": "Montparnasse", "to": "Brujon"}, {"from": "Child1", "to": "Child2"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
